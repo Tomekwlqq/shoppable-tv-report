@@ -117,6 +117,59 @@
   }
   .srclink { color: var(--accent); display: block; padding: 8px 12px; background: var(--surface); border-radius: 6px; text-decoration: none; border: 1px solid var(--border); font-size: 12px; }
   .srclink:hover { border-color: var(--accent); }
+
+  /* ── Light mode ── */
+  body.light {
+    --bg: #f4f4f8;
+    --surface: #ffffff;
+    --surface2: #ededf6;
+    --border: #d8d8ec;
+    --text: #1a1a2e;
+    --muted: #6666aa;
+    --green: #16a34a;
+    --orange: #ea580c;
+    --red: #dc2626;
+  }
+  body.light .hero {
+    background: linear-gradient(135deg, #eeeef8 0%, #e8e0f8 50%, #e0eaf8 100%);
+  }
+  body.light .vt {
+    background: linear-gradient(135deg, #e8e8f8, #f0e8f8);
+  }
+  body.light .qb {
+    background: var(--surface2);
+  }
+  body.light .ib {
+    background: linear-gradient(135deg, rgba(124,111,239,.06), rgba(232,93,138,.06));
+  }
+  body.light .stat::before {
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+  }
+  body.light section[style*="background:var(--surface)"] {
+    background: var(--surface) !important;
+  }
+
+  /* Toggle button */
+  .theme-toggle {
+    margin-left: auto;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4px 12px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .theme-toggle:hover { border-color: var(--accent); color: var(--text); }
+  .theme-toggle .icon-dark { display: inline; }
+  .theme-toggle .icon-light { display: none; }
+  body.light .theme-toggle .icon-dark { display: none; }
+  body.light .theme-toggle .icon-light { display: inline; }
 </style>
 </head>
 <body>
@@ -144,6 +197,10 @@
   <a href="#gaps">📊 Gaps</a>
   <a href="#yt">▶ YouTube</a>
   <a href="#wnioski">💡 Wnioski</a>
+  <button class="theme-toggle" onclick="toggleTheme()" title="Przełącz tryb">
+    <span class="icon-dark">☀️ Jasny</span>
+    <span class="icon-light">🌙 Ciemny</span>
+  </button>
 </nav>
 
 <!-- 1. RYNEK -->
@@ -586,5 +643,16 @@
   <span style="display:block;margin-top:8px;">Dla użytku wewnętrznego — e-commerce consulting &amp; strategy</span>
 </footer>
 
+<script>
+  function toggleTheme() {
+    const isLight = document.body.classList.toggle('light');
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  }
+  (function() {
+    if (localStorage.getItem('theme') === 'light') {
+      document.body.classList.add('light');
+    }
+  })();
+</script>
 </body>
 </html>
